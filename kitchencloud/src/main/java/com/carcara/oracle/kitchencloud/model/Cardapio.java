@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import oracle.sql.CHAR;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class Cardapio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codPrato;
-    private String statusPrato;
+    private char statusPrato;
     private String ingredientes;
     private String nomePrato;
 

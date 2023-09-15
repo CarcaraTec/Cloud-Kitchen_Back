@@ -20,7 +20,7 @@ public class ItemCompra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codItemCompra;
 
-    private String statusItem;
+    private char statusItem;
     private String descricaoItem;
 
     @ManyToOne

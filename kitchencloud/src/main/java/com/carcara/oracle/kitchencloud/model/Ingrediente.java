@@ -1,5 +1,6 @@
 package com.carcara.oracle.kitchencloud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class Ingrediente {
     private ItemCompra itemCompra;
 
     @OneToMany(mappedBy = "ingrediente")
+    @JsonIgnore
     private List<Estoque> estoques;
 
 }

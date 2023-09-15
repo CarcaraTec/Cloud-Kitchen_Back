@@ -7,5 +7,3 @@ T
 $Wallet_CloudKitchen/ojdbc.properties,4\4\449e379195f2023a71d0a129fc624220444d2f84
 8
 mvnw.cmd,1\f\1f1763f358c257ea3515417352b82b0165647ad1
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec

@@ -20,7 +20,7 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long codEndereco;
 
-    private Integer numeroCasa;
+    private String numeroCasa;
     private String cep;
 
     @ManyToOne

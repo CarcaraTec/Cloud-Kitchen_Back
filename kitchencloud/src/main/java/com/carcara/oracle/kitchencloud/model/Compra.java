@@ -22,8 +22,8 @@ public class Compra {
     private Long codCompra;
 
     private LocalDate dataCompra;
-    private String statusCompra;
-    private Double valorCompra;
+    private char statusCompra;
+    private Integer valorCompra;
 
     @ManyToOne
     @JoinColumn(name = "cod_fornecedor")
