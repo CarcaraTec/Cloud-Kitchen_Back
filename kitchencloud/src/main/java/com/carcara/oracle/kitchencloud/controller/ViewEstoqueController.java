@@ -16,7 +16,7 @@ public class ViewEstoqueController {
 
     @Autowired
     private ViewEstoqueService viewEstoqueService;
-    
+
     @GetMapping
     public ResponseEntity<List<ViewEstoque>> listarViewEstoque(){
         return ResponseEntity.ok().body(viewEstoqueService.listarViewEstoque());

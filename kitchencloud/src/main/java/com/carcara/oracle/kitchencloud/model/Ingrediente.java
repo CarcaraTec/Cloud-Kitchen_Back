@@ -29,8 +29,8 @@ public class Ingrediente {
     @JoinColumn(name = "cod_item_compra")
     private ItemCompra itemCompra;
 
-    @OneToMany(mappedBy = "ingrediente")
-    @JsonIgnore
-    private List<Estoque> estoques;
+    @ManyToOne
+    @JoinColumn(name = "cod_estoque")
+    private Estoque estoque;
 
 }
