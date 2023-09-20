@@ -25,7 +25,7 @@ public class SaidaEstoque {
     private String motivoSaida;
 
     @ManyToOne
-    @JoinColumn(name = " cod_item_estoque")
+    @JoinColumn(name = " cod_estoque")
     private Estoque estoque;
 
     @ManyToOne

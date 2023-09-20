@@ -23,5 +23,13 @@ q
 Asrc/main/java/com/carcara/oracle/kitchencloud/model/Cardapio.java,7\2\72f1a2f9f5de6194da2bab5e114bb50918867a4b
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-u
-Esrc/main/java/com/carcara/oracle/kitchencloud/model/SaidaEstoque.java,3\f\3f63036f7fb25f08006f3292f085a2b661fdddc2
+t
+Dsrc/main/java/com/carcara/oracle/kitchencloud/model/ViewEstoque.java,2\d\2df97106feb8e88bd10390cc691e254c14668ef6
+t
+Dsrc/main/java/com/carcara/oracle/kitchencloud/model/Ingrediente.java,3\c\3c38c05d135286105a7705025fba7ca4ddfa3695
+o
+?src/main/java/com/carcara/oracle/kitchencloud/model/Compra.java,1\5\15c336b52949abb749aea13f80431675e34ca892
+o
+?src/main/java/com/carcara/oracle/kitchencloud/model/Estado.java,0\b\0bbfd74b39b080f265da15ee26e290c2ea10add7
+t
+Dsrc/main/java/com/carcara/oracle/kitchencloud/config/CorsConfig.java,7\b\7bc27f7a4a9574e86deb2b888492e2041df356f2
