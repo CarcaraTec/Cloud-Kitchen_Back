@@ -23,7 +23,7 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Run Tests
       run: mvn test
-
+# Armazene
     # Armazene o resultado dos testes em uma variável
     - name: Check Test Results
       run: |
