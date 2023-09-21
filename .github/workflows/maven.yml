@@ -2,9 +2,11 @@ name: maven
 
 on:
   push:
-    branches: [ "develop" ]
+    branches:
+      - develop
   pull_request:
-    branches: [ "develop" ]
+    branches:
+      - develop
 
 jobs:
   build:
@@ -21,3 +23,20 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file kitchencloud/pom.xml
+
+  check-build:
+
+    runs-on: ubuntu-latest
+
+    needs: build
+    steps:
+    - name: Check Build Status
+      run: |
+        if [ ${{ job.status }} == "success" ]; then
+          echo "Build passed successfully."
+          exit 0
+        else
+          echo "Build failed. PR cannot be merged."
+          exit 1
+        fi
+
