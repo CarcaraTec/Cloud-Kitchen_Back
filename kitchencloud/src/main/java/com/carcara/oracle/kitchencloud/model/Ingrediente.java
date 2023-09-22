@@ -26,10 +26,6 @@ public class Ingrediente {
     private String nomeIngrediente;
 
     @ManyToOne
-    @JoinColumn(name = "cod_item_compra")
-    private ItemCompra itemCompra;
-
-    @ManyToOne
     @JoinColumn(name = "cod_estoque")
     private Estoque estoque;
 

@@ -21,7 +21,6 @@ public class Estoque {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codEstoque;
-    private String descProduto;
     private Integer pesoProduto;
     private Integer quantidadeProduto;
     private LocalDate dataEntrada;
@@ -33,5 +32,8 @@ public class Estoque {
     @OneToMany(mappedBy = "estoque")
     private List<SaidaEstoque> saidaEstoques;
 
+    @ManyToOne
+    @JoinColumn(name = "cod_item_compra")
+    private ItemCompra itemCompra;
 
 }

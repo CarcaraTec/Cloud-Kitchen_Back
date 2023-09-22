@@ -28,5 +28,5 @@ public class ItemCompra {
     private Compra compra;
 
     @OneToMany(mappedBy = "itemCompra")
-    private List<Ingrediente> ingredientes;
+    private List<Estoque> estoques;
 }
