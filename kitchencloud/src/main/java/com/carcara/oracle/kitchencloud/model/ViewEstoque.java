@@ -22,4 +22,7 @@ public class ViewEstoque {
     private String unidadeMedida;
     private String categoriaIngrediente;
     private Integer quantidade;
+    private Integer capacidade;
+    private Integer estoqueMinimo;
+
 }
