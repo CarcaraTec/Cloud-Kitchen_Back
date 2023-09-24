@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import oracle.sql.CHAR;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -23,6 +24,7 @@ public class Cardapio {
     private char statusPrato;
     private String ingredientes;
     private String nomePrato;
+    private BigDecimal valorItem;
 
     @OneToMany(mappedBy = "cardapio")
     private List<SaidaEstoque> saidaEstoques;
