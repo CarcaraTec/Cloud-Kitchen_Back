@@ -25,6 +25,8 @@ public class Estoque {
     private Integer quantidadeProduto;
     private LocalDate dataEntrada;
     private LocalDate dataValidade;
+    private Integer capacidade;
+    private Integer estoqueMinimo;
 
     @OneToMany(mappedBy = "estoque")
     private List<Ingrediente> ingrediente;
