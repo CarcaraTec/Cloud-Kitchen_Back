@@ -1,5 +1,7 @@
 package com.carcara.oracle.kitchencloud.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -8,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Subselect;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.math.BigDecimal;
 
@@ -34,5 +37,9 @@ public class RankVendaProduto {
 
     public String getDiaDaSemana() {
         return diaDaSemana.replaceAll(" ","");
+    }
+
+    public BigDecimal getImpactoPorcentagem() {
+        return impactoPorcentagem.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 }
