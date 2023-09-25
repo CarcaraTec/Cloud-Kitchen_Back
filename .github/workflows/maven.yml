@@ -2,9 +2,11 @@ name: maven
 
 on:
   push:
-    branches: [ "develop" ]
+    branches:
+      - develop
   pull_request:
-    branches: [ "develop" ]
+    branches:
+      - develop
 
 jobs:
   build:
@@ -20,15 +22,21 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
-    - name: Run Tests
-      run: mvn test
+      run: mvn -B package --file kitchencloud/pom.xml
 
-    # Armazene o resultado dos testes em uma variável
-    - name: Check Test Results
+  check-build:
+
+    runs-on: ubuntu-latest
+
+    needs: build
+    steps:
+    - name: Check Build Status
       run: |
-        TEST_RESULT=$?
-        if [ $TEST_RESULT -ne 0 ]; then
-          echo "Testes falharam. O fluxo de trabalho será marcado como falha."
+        if [ ${{ job.status }} == "success" ]; then
+          echo "Build passed successfully."
+          exit 0
+        else
+          echo "Build failed. PR cannot be merged."
           exit 1
         fi
+
