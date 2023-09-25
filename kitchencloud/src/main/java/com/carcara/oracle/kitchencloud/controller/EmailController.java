@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("email")
 public class EmailController {
@@ -18,7 +20,7 @@ public class EmailController {
     private EmailService emailService;
 
     @PostMapping("rank-pratos-diarios")
-    public void rankPratosDiarios (@RequestBody EnvioEmail envioEmail){
+    public void rankPratosDiarios (@RequestBody EnvioEmail envioEmail) throws IOException {
         emailService.rankPratosDiarios(envioEmail);
     }
 }

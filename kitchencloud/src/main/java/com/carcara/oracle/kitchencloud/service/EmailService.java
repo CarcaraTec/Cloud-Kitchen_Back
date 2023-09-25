@@ -2,6 +2,7 @@ package com.carcara.oracle.kitchencloud.service;
 
 
 import com.carcara.oracle.kitchencloud.InformacoesMes;
+import com.carcara.oracle.kitchencloud.config.JSONToPDF;
 import com.carcara.oracle.kitchencloud.model.EnvioEmail;
 import com.carcara.oracle.kitchencloud.model.RankVendaProduto;
 import com.google.gson.Gson;
@@ -9,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -20,12 +22,17 @@ public class EmailService {
     @Autowired
     private RankVendaProdutoService rankVendaProdutoService;
 
-    public void rankPratosDiarios(EnvioEmail envioEmail) {
+    @Autowired
+    private JSONToPDF jsonToPDF;
+
+    public void rankPratosDiarios(EnvioEmail envioEmail) throws IOException {
         InformacoesMes informacoesMes = new InformacoesMes();
         List<RankVendaProduto> rankVendaProdutos =
                 rankVendaProdutoService.rankVendaProdutos(informacoesMes.getNumeroDoDia(),
                         informacoesMes.getPrimeiroDiaDoMes().toString(),informacoesMes.getUltimoDiaDoMes().toString());
 
+        jsonToPDF.criarPdf(informacoesMes.getNumeroDoDia(),
+                informacoesMes.getPrimeiroDiaDoMes().toString(),informacoesMes.getUltimoDiaDoMes().toString());
         // Inicialize um StringBuilder para construir a tabela HTML
         StringBuilder tableHtml = new StringBuilder();
 

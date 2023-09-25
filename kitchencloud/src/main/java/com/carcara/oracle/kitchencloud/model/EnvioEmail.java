@@ -13,6 +13,7 @@ public class EnvioEmail {
 
     private String conteudo;
 
+
     public String getPara() {
         return para;
     }
