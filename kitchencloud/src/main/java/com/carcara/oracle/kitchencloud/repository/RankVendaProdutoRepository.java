@@ -4,8 +4,6 @@ import com.carcara.oracle.kitchencloud.model.RankVendaProduto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface RankVendaProdutoRepository extends JpaRepository<RankVendaProduto, Long> {

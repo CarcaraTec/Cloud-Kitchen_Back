@@ -1,4 +1,4 @@
-package com.carcara.oracle.kitchencloud;
+package com.carcara.oracle.kitchencloud.service;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -27,13 +27,5 @@ public class InformacoesMes {
 
     public LocalDate getUltimoDiaDoMes() {
         return ultimoDiaDoMes;
-    }
-
-    public static void main(String[] args) {
-        InformacoesMes informacoes = new InformacoesMes();
-
-        System.out.println("Número do dia: " + informacoes.getNumeroDoDia());
-        System.out.println("Primeiro dia do mês: " + informacoes.getPrimeiroDiaDoMes());
-        System.out.println("Último dia do mês: " + informacoes.getUltimoDiaDoMes());
     }
 }
