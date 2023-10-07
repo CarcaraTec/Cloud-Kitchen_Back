@@ -21,20 +21,21 @@ import java.time.LocalDateTime;
 public class ViewComanda {
 
     @Id
+    @JsonProperty("nf")
     private Long idComanda;
 
-    @JsonProperty("quantidadeItenNota")
+    @JsonProperty("qtdItens")
     private Integer quantidadeItemVenda;
 
-    @JsonProperty("faturamentoNota")
+    @JsonProperty("preco")
     private BigDecimal totalPagamentoVenda;
 
-    @JsonProperty("horarioAberturaPedido")
+    @JsonProperty("abertura")
     private LocalDateTime horarioAberturaComanda;
 
-    @JsonProperty("horarioFechamentoPedido")
+    @JsonProperty("fechamento")
     private LocalDateTime horarioFechamentoComanda;
 
-    @JsonProperty("funcionarioAtendente")
+    @JsonProperty("atendente")
     private String nomeFuncionario;
 }
