@@ -1,5 +1,6 @@
 package com.carcara.oracle.kitchencloud.model;
 
+import com.carcara.oracle.kitchencloud.model.dto.CadastroConfiguracaoAlertaDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,8 +15,8 @@ import lombok.Setter;
 public class ConfiguracaoAlerta {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "ID")
+    private Integer id;
 
     @Column(name = "nome_alerta")
     private String nomeAlerta;
@@ -33,6 +34,17 @@ public class ConfiguracaoAlerta {
     
     @Column(name = "ativo")
     private Integer ativo;
+
+    public ConfiguracaoAlerta(CadastroConfiguracaoAlertaDTO cadastroConfiguracaoAlertaDTO) {
+        this.nomeAlerta = cadastroConfiguracaoAlertaDTO.nomeAlerta();
+        this.descricao = cadastroConfiguracaoAlertaDTO.descricao();
+        this.entidade = cadastroConfiguracaoAlertaDTO.entidade();
+        this.condicaoDisparo = cadastroConfiguracaoAlertaDTO.condicaoDisparo();
+        this.valorParametro = cadastroConfiguracaoAlertaDTO.valorParametro();
+        this.acao = cadastroConfiguracaoAlertaDTO.acao();
+        this.destinatarios = cadastroConfiguracaoAlertaDTO.destinatarios();
+        this.ativo = 1;
+    }
 
     // Getters and setters (ou Lombok @Data) e outros métodos, construtores, etc.
 

@@ -1,6 +1,7 @@
 package com.carcara.oracle.kitchencloud.controller;
 
 import com.carcara.oracle.kitchencloud.model.ConfiguracaoAlerta;
+import com.carcara.oracle.kitchencloud.model.dto.CadastroConfiguracaoAlertaDTO;
 import com.carcara.oracle.kitchencloud.service.ConfiguracaoAlertaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ public class AlertaController {
     private ConfiguracaoAlertaService configuracaoAlertaService;
 
     @PostMapping
-    public ConfiguracaoAlerta criarAlerta (@RequestBody ConfiguracaoAlerta configuracaoAlerta){
+    public ConfiguracaoAlerta criarAlerta (@RequestBody CadastroConfiguracaoAlertaDTO configuracaoAlerta){
         return configuracaoAlertaService.criarAlerta(configuracaoAlerta);
     }
 }
