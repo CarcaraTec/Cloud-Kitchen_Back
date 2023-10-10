@@ -20,7 +20,6 @@ public class VendaDiaria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codVenda;
-
     private LocalDateTime dataVenda;
     private BigDecimal totalPagamento;
 

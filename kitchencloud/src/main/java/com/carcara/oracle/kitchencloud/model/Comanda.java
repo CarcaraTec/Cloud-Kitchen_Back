@@ -28,6 +28,9 @@ public class Comanda {
     @JoinColumn(name = "cod_venda")
     private VendaDiaria vendaDiaria;
 
+    @OneToMany(mappedBy = "comanda")
+    private List<ItemVendaDiaria> itemVendaDiarias;
+
     @OneToOne
     @JoinColumn(name = "cod_funcionario")
     private Funcionario funcionario;

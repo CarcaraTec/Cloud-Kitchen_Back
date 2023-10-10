@@ -29,9 +29,6 @@ public class Estoque {
     private Integer estoqueMinimo;
 
     @OneToMany(mappedBy = "estoque")
-    private List<Ingrediente> ingrediente;
-
-    @OneToMany(mappedBy = "estoque")
     private List<SaidaEstoque> saidaEstoques;
 
     @ManyToOne
