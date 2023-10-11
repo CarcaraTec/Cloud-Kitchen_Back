@@ -29,15 +29,28 @@ public class CalculoService {
         BigDecimal valorTotal = new BigDecimal("0.0");
         Integer quantidadeNotas = comandas.size();
 
-        final BigDecimal[] total = {valorTotal}; // Criar um array de BigDecimal
+        final BigDecimal[] total = {valorTotal};
 
         comandas.forEach(comanda -> {
             BigDecimal valor = comanda.getVendaDiaria().getTotalPagamento();
             System.out.println(valor);
-            total[0] = valor.add(total[0]); // Atualizar o valor do array
+            total[0] = valor.add(total[0]);
         });
 
         return total[0].divide(BigDecimal.valueOf(quantidadeNotas));
     }
 
+    public BigDecimal calculoReceitaTotal(LocalDateTime dataInicio, LocalDateTime dataFim){
+        List<Comanda> comandas = comandaRepository.findByHorarioAberturaBetween(dataInicio, dataFim);
+        BigDecimal valorTotal = new BigDecimal("0.0");
+
+        final BigDecimal[] total = {valorTotal};
+
+        comandas.forEach(comanda -> {
+            BigDecimal valor = comanda.getVendaDiaria().getTotalPagamento();
+            System.out.println(valor);
+            total[0] = valor.add(total[0]);
+        });
+        return total[0];
+    }
 }

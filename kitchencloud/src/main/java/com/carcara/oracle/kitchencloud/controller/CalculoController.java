@@ -18,8 +18,17 @@ public class CalculoController {
     @GetMapping("/preco-medio-nota")
     public BigDecimal calcularPrecoMedioNota(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicio,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim
-    ) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim) {
+
         return calculoService.calculoPrecoMedioNota(dataInicio, dataFim);
     }
+
+    @GetMapping("/receita-total")
+    public BigDecimal calcularReceitaTotal(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicio,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim) {
+
+        return calculoService.calculoReceitaTotal(dataInicio, dataFim);
+    }
+
 }
