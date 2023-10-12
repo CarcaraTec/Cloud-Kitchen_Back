@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -53,4 +51,35 @@ public class CalculoService {
         });
         return total[0];
     }
+
+    public Duration calculoParmaneciaMedia(LocalDateTime dataInicio, LocalDateTime dataFim) {
+        List<Comanda> comandas = comandaRepository.findByHorarioAberturaBetween(dataInicio, dataFim);
+
+        Duration duracaoTotal = Duration.ZERO;
+
+        for (Comanda comanda : comandas) {
+            Timestamp abertura = comanda.getHorarioAbertura();
+            Timestamp fechamento = comanda.getHorarioFechamento();
+
+            LocalDateTime aberturaLocalDateTime = abertura.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            LocalDateTime fechamentoLocalDateTime = fechamento.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+            Duration duracaoComanda = Duration.between(aberturaLocalDateTime, fechamentoLocalDateTime);
+
+            duracaoTotal = duracaoTotal.plus(duracaoComanda);
+        }
+
+        Integer numeroDeComandas = comandas.size();
+        if (numeroDeComandas > 0) {
+            return duracaoTotal.dividedBy(numeroDeComandas);
+        } else {
+            return Duration.ZERO;
+        }
+    }
+
+
+
+
+
+
 }
