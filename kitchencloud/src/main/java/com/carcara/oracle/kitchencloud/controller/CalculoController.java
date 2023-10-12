@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @RestController
@@ -31,4 +32,11 @@ public class CalculoController {
         return calculoService.calculoReceitaTotal(dataInicio, dataFim);
     }
 
+    @GetMapping("/permanencia-media")
+    public Duration calcularPermanenciaMedia(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicio,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim) {
+
+        return calculoService.calculoParmaneciaMedia(dataInicio, dataFim);
+    }
 }
