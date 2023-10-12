@@ -4,6 +4,7 @@ import com.carcara.oracle.kitchencloud.exception.SolicitacaoNaoEncontrada;
 import com.carcara.oracle.kitchencloud.model.Comanda;
 import com.carcara.oracle.kitchencloud.model.ItemVendaDiaria;
 import com.carcara.oracle.kitchencloud.model.VendaDiaria;
+import com.carcara.oracle.kitchencloud.model.dto.CalculoDTO;
 import com.carcara.oracle.kitchencloud.repository.ComandaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,6 @@ public class CalculoService {
 
         comandas.forEach(comanda -> {
             BigDecimal valor = comanda.getVendaDiaria().getTotalPagamento();
-            System.out.println(valor);
             total[0] = valor.add(total[0]);
         });
 
@@ -46,7 +46,6 @@ public class CalculoService {
 
         comandas.forEach(comanda -> {
             BigDecimal valor = comanda.getVendaDiaria().getTotalPagamento();
-            System.out.println(valor);
             total[0] = valor.add(total[0]);
         });
         return total[0];
@@ -77,9 +76,18 @@ public class CalculoService {
         }
     }
 
+    public Integer quantidadeNotas(LocalDateTime dataInicio, LocalDateTime dataFim){
+        List<Comanda> comandas = comandaRepository.findByHorarioAberturaBetween(dataInicio, dataFim);
+        return comandas.size();
+    }
 
+    public CalculoDTO calculoPainelReceitas(LocalDateTime dataInicio, LocalDateTime dataFim){
+        BigDecimal precoMedioNota = calculoPrecoMedioNota(dataInicio, dataFim);
+        BigDecimal receitaTotal = calculoReceitaTotal(dataInicio, dataFim);
+        Duration permancenciaMedia = calculoParmaneciaMedia(dataInicio, dataFim);
+        Integer quantidadeNota = quantidadeNotas(dataInicio, dataFim);
 
-
-
+        return new CalculoDTO(precoMedioNota, receitaTotal, permancenciaMedia, quantidadeNota);
+    }
 
 }
