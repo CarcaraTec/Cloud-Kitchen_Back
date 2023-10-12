@@ -1,5 +1,6 @@
 package com.carcara.oracle.kitchencloud.model;
 
+import com.carcara.oracle.kitchencloud.model.dto.CadastroCompraDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,4 +32,12 @@ public class Compra {
 
     @OneToMany(mappedBy = "compra")
     private List<ItemCompra> itensCompra;
+
+    public Compra(CadastroCompraDTO cadastroCompraDTO, Fornecedor fornecedor) {
+        this.dataCompra = cadastroCompraDTO.dataCompra();
+        this.valorCompra = cadastroCompraDTO.valorCompra();
+        this.fornecedor = fornecedor;
+        this.statusCompra = 'N';
+        this.dataCompra = LocalDate.now();
+    }
 }
