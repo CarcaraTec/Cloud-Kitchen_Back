@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.*;
@@ -39,7 +40,7 @@ public class CalculoService {
             return BigDecimal.ZERO;
         }
 
-        return total[0].divide(BigDecimal.valueOf(quantidadeNotas));
+        return total[0].divide(BigDecimal.valueOf(quantidadeNotas), 2, RoundingMode.HALF_UP);
     }
 
 
