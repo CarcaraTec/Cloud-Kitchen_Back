@@ -35,8 +35,13 @@ public class CalculoService {
             total[0] = valor.add(total[0]);
         });
 
+        if (total[0].compareTo(BigDecimal.ZERO) == 0) {
+            return BigDecimal.ZERO;
+        }
+
         return total[0].divide(BigDecimal.valueOf(quantidadeNotas));
     }
+
 
     public BigDecimal calculoReceitaTotal(LocalDateTime dataInicio, LocalDateTime dataFim){
         List<Comanda> comandas = comandaRepository.findByHorarioAberturaBetween(dataInicio, dataFim);
