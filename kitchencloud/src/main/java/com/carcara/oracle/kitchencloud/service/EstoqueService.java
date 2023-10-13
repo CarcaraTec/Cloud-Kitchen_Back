@@ -22,7 +22,7 @@ public class EstoqueService {
 
     public ExibicaoEstoqueDTO insercaoInsumoEstoque(CadastroEstoqueDTO cadastroEstoqueDTO){
         Optional<ItemCompra> itemCompra = itemCompraRepository.findById(cadastroEstoqueDTO.codItemCompra());
-
+ 
         if (itemCompra.isEmpty()){
 
         }

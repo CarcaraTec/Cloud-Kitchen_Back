@@ -38,17 +38,22 @@ public class CompraService {
         }
         Compra compra = new Compra(cadastroCompraDTO,fornecedor.get());
 
+        compra.setCodCompra(compraRepository.findFirstByOrderByIdDesc()+1);
+
         compraRepository.save(compra);
 
         List<ItemCompra> itemCompras = new ArrayList<>();
 
+        Long itemCompraIdStart =  itemCompraRepository.findFirstByOrderByIdDesc()+1;
         for(CadastroItemCompraDTO itens : cadastroCompraDTO.itens()){
             Optional<Ingrediente> ingrediente = ingredienteRepository.findById(itens.codIngrediente());
             if(ingrediente.isEmpty()){
 
             }
             ItemCompra itemCompra = new ItemCompra(itens,ingrediente.get(),fornecedor.get(),compra);
+            itemCompra.setCodItemCompra(itemCompraIdStart);
             itemCompras.add(itemCompra);
+            itemCompraIdStart++;
         }
         itemCompraRepository.saveAll(itemCompras);
     }

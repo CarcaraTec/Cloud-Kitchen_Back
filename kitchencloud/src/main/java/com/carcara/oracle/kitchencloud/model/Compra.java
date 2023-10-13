@@ -19,7 +19,6 @@ import java.util.List;
 public class Compra {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codCompra;
 
     private LocalDate dataCompra;

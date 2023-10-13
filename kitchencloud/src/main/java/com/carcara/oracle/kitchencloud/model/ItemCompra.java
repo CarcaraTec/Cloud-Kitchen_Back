@@ -19,7 +19,6 @@ import java.util.Optional;
 public class ItemCompra {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codItemCompra;
 
     private char statusItem;
