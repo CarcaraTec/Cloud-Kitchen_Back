@@ -1,6 +1,9 @@
 package com.carcara.oracle.kitchencloud.model;
 
 import com.carcara.oracle.kitchencloud.model.dto.CadastroConfiguracaoAlertaDTO;
+import com.carcara.oracle.kitchencloud.model.enums.AcaoAlerta;
+import com.carcara.oracle.kitchencloud.model.enums.CondicaoDisparoAlerta;
+import com.carcara.oracle.kitchencloud.model.enums.Entidade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,14 +25,18 @@ public class ConfiguracaoAlerta {
     private String nomeAlerta;
 
     private String descricao;
-    private String entidade;
+    @Enumerated(EnumType.STRING)
+    private Entidade entidade;
     
     @Column(name = "condicao_disparo")
-    private String condicaoDisparo;
+    @Enumerated(EnumType.STRING)
+    private CondicaoDisparoAlerta condicaoDisparo;
     
     @Column(name = "valor_parametro")
     private String valorParametro;
-    private String acao;
+
+    @Enumerated(EnumType.STRING)
+    private AcaoAlerta acao;
     private String destinatarios;
     
     @Column(name = "ativo")

@@ -35,8 +35,11 @@ public class EstoqueService {
 
         }
         Estoque estoque = new Estoque(cadastroEstoqueDTO,itemCompra.get());
-
+        estoque.setCodEstoque(estoqueRepository.findFirstByOrderByIdDesc()+1);
+        adicionarNoBanco(itemCompra.get().getIngrediente(), estoque.getQuantidadeProduto());
         estoqueRepository.save(estoque);
+        itemCompra.get().setStatusItem('R');
+        itemCompraRepository.save(itemCompra.get());
         return new ExibicaoEstoqueDTO(estoque);
     }
 
@@ -59,6 +62,12 @@ public class EstoqueService {
     public void retirarDoBanco(Ingrediente ingrediente, Integer quantidadeSaida){
         Float quantidadeAtual = ingrediente.getQuantidadeTotal();
         ingrediente.setQuantidadeTotal(quantidadeAtual - quantidadeSaida);
+        ingredienteRepository.save(ingrediente);
+    }
+
+    public void adicionarNoBanco(Ingrediente ingrediente, Integer quantidadeSaida){
+        Float quantidadeAtual = ingrediente.getQuantidadeTotal();
+        ingrediente.setQuantidadeTotal(quantidadeAtual + quantidadeSaida);
         ingredienteRepository.save(ingrediente);
     }
 }

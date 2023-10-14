@@ -17,4 +17,8 @@ public class ConfiguracaoAlertaService {
         configuracaoAlerta.setId(configuracaoAlertaRepository.findFirstByOrderByIdDesc()+1);;
         return configuracaoAlertaRepository.save(configuracaoAlerta);
     }
+
+    public void teste(){
+
+    }
 }
