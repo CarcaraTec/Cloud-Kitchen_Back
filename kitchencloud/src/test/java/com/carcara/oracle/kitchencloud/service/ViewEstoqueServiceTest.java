@@ -28,7 +28,7 @@ public class ViewEstoqueServiceTest {
     public void setUp(){
         viewEstoque = ViewEstoque.builder().codIngrediente(1L).nomeIngrediente("Ingrediente 1")
                 .unidadeMedida("kg").categoriaIngrediente("Massa").quantidade(30)
-                .capacidade(100).estoqueMinimo(10).build();
+                .capacidade(100D).estoqueMinimo(10D).build();
     }
 
     @Test
