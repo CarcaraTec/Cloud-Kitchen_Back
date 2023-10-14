@@ -1,17 +1,11 @@
 package com.carcara.oracle.kitchencloud.service;
 
-import com.carcara.oracle.kitchencloud.model.Cardapio;
-import com.carcara.oracle.kitchencloud.model.Estoque;
-import com.carcara.oracle.kitchencloud.model.ItemCompra;
-import com.carcara.oracle.kitchencloud.model.SaidaEstoque;
+import com.carcara.oracle.kitchencloud.model.*;
 import com.carcara.oracle.kitchencloud.model.dto.CadastroEstoqueDTO;
 import com.carcara.oracle.kitchencloud.model.dto.ExibicaoEstoqueDTO;
 import com.carcara.oracle.kitchencloud.model.dto.ExibicaoSaidaEstoqueDTO;
 import com.carcara.oracle.kitchencloud.model.dto.SaidaEstoqueDTO;
-import com.carcara.oracle.kitchencloud.repository.CardapioRepository;
-import com.carcara.oracle.kitchencloud.repository.EstoqueRepository;
-import com.carcara.oracle.kitchencloud.repository.ItemCompraRepository;
-import com.carcara.oracle.kitchencloud.repository.SaidaEstoqueRepository;
+import com.carcara.oracle.kitchencloud.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +22,8 @@ public class EstoqueService {
 
     @Autowired
     private SaidaEstoqueRepository saidaEstoqueRepository;
+    @Autowired
+    private IngredienteRepository ingredienteRepository;
 
     @Autowired
     private CardapioRepository cardapioRepository;
@@ -54,14 +50,15 @@ public class EstoqueService {
             // AQUI COLOCAR EXCESSÃO
         }
         SaidaEstoque saidaEstoque = new SaidaEstoque(saidaEstoqueDTO,estoque.get(),cardapio.get());
-
+        retirarDoBanco(estoque.get().getItemCompra().getIngrediente(), saidaEstoqueDTO.quantidadeSaida());
         saidaEstoque.setCodSaida(saidaEstoqueRepository.findFirstByOrderByIdDesc());
         saidaEstoqueRepository.save(saidaEstoque);
         return new ExibicaoSaidaEstoqueDTO(saidaEstoque);
     }
 
-    public void retirarDoBanco(Estoque estoque, Integer quantidadeSaida){
-        Integer quantidadeAtual = estoque.getQuantidadeProduto();
-        estoque.setQuantidadeProduto(quantidadeAtual - quantidadeSaida);
+    public void retirarDoBanco(Ingrediente ingrediente, Integer quantidadeSaida){
+        Float quantidadeAtual = ingrediente.getQuantidadeTotal();
+        ingrediente.setQuantidadeTotal(quantidadeAtual - quantidadeSaida);
+        ingredienteRepository.save(ingrediente);
     }
 }
