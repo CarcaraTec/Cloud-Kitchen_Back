@@ -22,6 +22,7 @@ public class ItemCompra {
     private Long codItemCompra;
 
     private char statusItem;
+
     private String descricaoItem;
 
     @ManyToOne

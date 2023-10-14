@@ -23,4 +23,7 @@ public class Ingrediente {
     private String unidadeMedida;
     private String categoriaIngrediente;
     private String nomeIngrediente;
+    private Float capacidade;
+    private Float estoqueMinimo;
+    private Float quantidadeTotal;
 }
