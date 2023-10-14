@@ -59,4 +59,9 @@ public class EstoqueService {
         saidaEstoqueRepository.save(saidaEstoque);
         return new ExibicaoSaidaEstoqueDTO(saidaEstoque);
     }
+
+    public void retirarDoBanco(Estoque estoque, Integer quantidadeSaida){
+        Integer quantidadeAtual = estoque.getQuantidadeProduto();
+        estoque.setQuantidadeProduto(quantidadeAtual - quantidadeSaida);
+    }
 }
