@@ -27,8 +27,7 @@ public class Estoque {
     private Integer quantidadeProduto;
     private LocalDate dataEntrada;
     private LocalDate dataValidade;
-    private Integer capacidade;
-    private Integer estoqueMinimo;
+
 
     @OneToMany(mappedBy = "estoque")
     private List<SaidaEstoque> saidaEstoques;
@@ -42,8 +41,6 @@ public class Estoque {
         this.quantidadeProduto = cadastroEstoqueDTO.quantidadeProduto();
         this.dataEntrada = cadastroEstoqueDTO.dataEntrada();
         this.dataValidade = cadastroEstoqueDTO.dataValidade();
-        this.capacidade = cadastroEstoqueDTO.capacidade();
-        this.estoqueMinimo = cadastroEstoqueDTO.estoqueMinimo();
         this.itemCompra = itemCompra;
     }
 }
