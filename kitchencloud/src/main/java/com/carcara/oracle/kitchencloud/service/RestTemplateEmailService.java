@@ -10,6 +10,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,15 +60,12 @@ public class RestTemplateEmailService {
         return response;
     }
 
-    public void enviarEmailSimples (EnvioEmail envioEmail){
+    public void enviarEmailSimples(EnvioEmail envioEmail) {
         // Crie um objeto RestTemplate
         RestTemplate restTemplate = new RestTemplate();
 
         // URL do endpoint onde você deseja fazer a solicitação POST
         String postUrl = "https://hook.us1.make.com/s5rrbn3trol1t5823eipjmbwfvcn5im6";
-
-        // Crie o objeto que você deseja enviar no corpo da solicitação
-
 
         // Crie os cabeçalhos da solicitação, incluindo o tipo de mídia
         HttpHeaders headers = new HttpHeaders();
@@ -77,10 +75,12 @@ public class RestTemplateEmailService {
         HttpEntity<EnvioEmail> request = new HttpEntity<>(envioEmail, headers);
 
         // Faça a solicitação POST usando o RestTemplate
-        restTemplate.postForObject(postUrl, request, EnvioEmail.class);
+        URI location = restTemplate.postForLocation(postUrl, request);
+
         // Manipule a resposta conforme necessário
-        System.out.println("Resposta: " + 200);
+        System.out.println("A solicitação foi bem-sucedida e a localização da resposta é: " + location);
     }
+
 
     public static void main(String[] args) {
 //        EnvioEmail envioEmail = new EnvioEmail();

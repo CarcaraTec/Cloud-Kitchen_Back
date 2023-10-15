@@ -7,8 +7,10 @@ import com.carcara.oracle.kitchencloud.model.dto.ExibicaoSaidaEstoqueDTO;
 import com.carcara.oracle.kitchencloud.model.dto.SaidaEstoqueDTO;
 import com.carcara.oracle.kitchencloud.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +32,9 @@ public class EstoqueService {
     private CardapioRepository cardapioRepository;
 
     @Autowired
+    @Lazy
     private ConfiguracaoAlertaService configuracaoAlertaService;
+
 
     public ExibicaoEstoqueDTO insercaoInsumoEstoque(CadastroEstoqueDTO cadastroEstoqueDTO){
         Optional<ItemCompra> itemCompra = itemCompraRepository.findById(cadastroEstoqueDTO.codItemCompra());
@@ -59,6 +63,8 @@ public class EstoqueService {
         SaidaEstoque saidaEstoque = new SaidaEstoque(saidaEstoqueDTO,estoque.get(),cardapio.get());
         retirarDoBanco(estoque.get().getItemCompra().getIngrediente(), saidaEstoqueDTO.quantidadeSaida());
         saidaEstoque.setCodSaida(saidaEstoqueRepository.findFirstByOrderByIdDesc());
+        estoque.get().setQuantidadeProduto(estoque.get().getQuantidadeProduto()-saidaEstoqueDTO.quantidadeSaida());
+        estoqueRepository.save(estoque.get());
         saidaEstoqueRepository.save(saidaEstoque);
         List<ConfiguracaoAlerta> alertasEstoque = configuracaoAlertaService.procurarAlertaEstoque();
         for(ConfiguracaoAlerta alerta : alertasEstoque){
@@ -77,5 +83,15 @@ public class EstoqueService {
         Float quantidadeAtual = ingrediente.getQuantidadeTotal();
         ingrediente.setQuantidadeTotal(quantidadeAtual + quantidadeSaida);
         ingredienteRepository.save(ingrediente);
+    }
+
+    public List<ExibicaoEstoqueDTO> procurarEstoquePorDataValidadeDto(LocalDate validade){
+        List<Estoque> estoques = estoqueRepository.procurarEstoquePorDataValidade(validade);
+        return estoques.stream().map(estoque -> new ExibicaoEstoqueDTO(estoque)).toList();
+    }
+
+    public List<Estoque> procurarEstoquePorDataValidade(LocalDate validade){
+        List<Estoque> estoques = estoqueRepository.procurarEstoquePorDataValidade(validade);
+        return estoques;
     }
 }

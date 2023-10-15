@@ -1,6 +1,7 @@
 package com.carcara.oracle.kitchencloud.repository;
 
 import com.carcara.oracle.kitchencloud.model.ConfiguracaoAlerta;
+import com.carcara.oracle.kitchencloud.model.enums.CondicaoDisparoAlerta;
 import com.carcara.oracle.kitchencloud.model.enums.Entidade;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +21,6 @@ public interface ConfiguracaoAlertaRepository extends JpaRepository<Configuracao
     Integer findFirstByOrderByIdDesc();
 
     List<ConfiguracaoAlerta> findByEntidade(Entidade estoque);
+
+    List<ConfiguracaoAlerta> findByEntidadeAndCondicaoDisparo(Entidade estoque, CondicaoDisparoAlerta validade);
 }
