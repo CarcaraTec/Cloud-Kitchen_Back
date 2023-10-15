@@ -20,6 +20,4 @@ public class AlertaController {
     public ConfiguracaoAlerta criarAlerta (@RequestBody CadastroConfiguracaoAlertaDTO configuracaoAlerta){
         return configuracaoAlertaService.criarAlerta(configuracaoAlerta);
     }
-
-
 }

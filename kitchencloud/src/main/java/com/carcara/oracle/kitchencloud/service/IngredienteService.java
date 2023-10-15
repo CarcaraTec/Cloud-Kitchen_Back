@@ -5,6 +5,7 @@ import com.carcara.oracle.kitchencloud.repository.IngredienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,5 +21,9 @@ public class IngredienteService {
         ingrediente.get().setEstoqueMinimo(estoqueMinimo);
         ingredienteRepository.save(ingrediente.get());
         return ingrediente.get();
+    }
+
+    public List<Ingrediente> listarTodosIngredientes() {
+        return ingredienteRepository.findAll();
     }
 }
