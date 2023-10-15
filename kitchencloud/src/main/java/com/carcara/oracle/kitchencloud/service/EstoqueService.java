@@ -9,6 +9,7 @@ import com.carcara.oracle.kitchencloud.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,9 @@ public class EstoqueService {
 
     @Autowired
     private CardapioRepository cardapioRepository;
+
+    @Autowired
+    private ConfiguracaoAlertaService configuracaoAlertaService;
 
     public ExibicaoEstoqueDTO insercaoInsumoEstoque(CadastroEstoqueDTO cadastroEstoqueDTO){
         Optional<ItemCompra> itemCompra = itemCompraRepository.findById(cadastroEstoqueDTO.codItemCompra());
@@ -56,6 +60,10 @@ public class EstoqueService {
         retirarDoBanco(estoque.get().getItemCompra().getIngrediente(), saidaEstoqueDTO.quantidadeSaida());
         saidaEstoque.setCodSaida(saidaEstoqueRepository.findFirstByOrderByIdDesc());
         saidaEstoqueRepository.save(saidaEstoque);
+        List<ConfiguracaoAlerta> alertasEstoque = configuracaoAlertaService.procurarAlertaEstoque();
+        for(ConfiguracaoAlerta alerta : alertasEstoque){
+            configuracaoAlertaService.alertaEstoque(estoque.get(),alerta);
+        }
         return new ExibicaoSaidaEstoqueDTO(saidaEstoque);
     }
 
