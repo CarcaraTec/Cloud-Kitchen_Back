@@ -5,7 +5,6 @@ import java.util.List;
 
 
 public record CadastroCompraDTO(
-        LocalDate dataCompra,
         Integer valorCompra,
         Long idFornecedor,
         List<CadastroItemCompraDTO> itens

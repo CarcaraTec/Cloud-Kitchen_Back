@@ -58,4 +58,35 @@ public class RestTemplateEmailService {
 
         return response;
     }
+
+    public void enviarEmailSimples (EnvioEmail envioEmail){
+        // Crie um objeto RestTemplate
+        RestTemplate restTemplate = new RestTemplate();
+
+        // URL do endpoint onde você deseja fazer a solicitação POST
+        String postUrl = "https://hook.us1.make.com/s5rrbn3trol1t5823eipjmbwfvcn5im6";
+
+        // Crie o objeto que você deseja enviar no corpo da solicitação
+
+
+        // Crie os cabeçalhos da solicitação, incluindo o tipo de mídia
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        // Crie uma entidade HttpEntity com o objeto e cabeçalhos
+        HttpEntity<EnvioEmail> request = new HttpEntity<>(envioEmail, headers);
+
+        // Faça a solicitação POST usando o RestTemplate
+        restTemplate.postForObject(postUrl, request, EnvioEmail.class);
+        // Manipule a resposta conforme necessário
+        System.out.println("Resposta: " + 200);
+    }
+
+    public static void main(String[] args) {
+//        EnvioEmail envioEmail = new EnvioEmail();
+//        envioEmail.setPara("pedrolucas.emp@gmail.com");
+//        envioEmail.setAssunto("teste");
+//        envioEmail.setConteudo("teste");
+//        enviarEmailSimples(envioEmail);
+    }
 }

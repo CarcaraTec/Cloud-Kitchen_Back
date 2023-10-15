@@ -33,7 +33,7 @@ public class Compra {
     private List<ItemCompra> itensCompra;
 
     public Compra(CadastroCompraDTO cadastroCompraDTO, Fornecedor fornecedor) {
-        this.dataCompra = cadastroCompraDTO.dataCompra();
+        this.dataCompra = LocalDate.now();
         this.valorCompra = cadastroCompraDTO.valorCompra();
         this.fornecedor = fornecedor;
         this.statusCompra = 'A';
