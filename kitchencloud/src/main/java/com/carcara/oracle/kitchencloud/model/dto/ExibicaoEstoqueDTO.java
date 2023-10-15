@@ -10,8 +10,6 @@ public record ExibicaoEstoqueDTO(
         Integer quantidadeProduto,
         LocalDate dataEntrada,
         LocalDate dataValidade,
-        Integer capacidade,
-        Integer estoqueMinimo,
         Long codItemCompra
 ) {
     public ExibicaoEstoqueDTO(Estoque estoque) {
@@ -20,8 +18,6 @@ public record ExibicaoEstoqueDTO(
                 estoque.getQuantidadeProduto(),
                 estoque.getDataEntrada(),
                 estoque.getDataValidade(),
-                estoque.getCapacidade(),
-                estoque.getEstoqueMinimo(),
                 estoque.getItemCompra().getCodItemCompra()
         );
     }

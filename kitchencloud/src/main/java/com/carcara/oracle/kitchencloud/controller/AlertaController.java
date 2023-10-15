@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/alerta")
 public class AlertaController {
 
-
     @Autowired
     private ConfiguracaoAlertaService configuracaoAlertaService;
 
@@ -21,4 +20,6 @@ public class AlertaController {
     public ConfiguracaoAlerta criarAlerta (@RequestBody CadastroConfiguracaoAlertaDTO configuracaoAlerta){
         return configuracaoAlertaService.criarAlerta(configuracaoAlerta);
     }
+
+
 }

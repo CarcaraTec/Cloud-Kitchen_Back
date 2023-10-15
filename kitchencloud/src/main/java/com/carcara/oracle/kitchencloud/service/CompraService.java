@@ -44,7 +44,7 @@ public class CompraService {
 
         List<ItemCompra> itemCompras = new ArrayList<>();
 
-        Long itemCompraIdStart =  itemCompraRepository.findFirstByOrderByIdDesc()+1;
+        Long itemCompraIdStart = itemCompraRepository.findFirstByOrderByIdDesc()+1;
         for(CadastroItemCompraDTO itens : cadastroCompraDTO.itens()){
             Optional<Ingrediente> ingrediente = ingredienteRepository.findById(itens.codIngrediente());
             if(ingrediente.isEmpty()){
@@ -55,6 +55,8 @@ public class CompraService {
             itemCompras.add(itemCompra);
             itemCompraIdStart++;
         }
+
         itemCompraRepository.saveAll(itemCompras);
     }
+
 }

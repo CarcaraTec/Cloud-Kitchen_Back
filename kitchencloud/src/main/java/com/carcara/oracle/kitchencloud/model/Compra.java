@@ -36,7 +36,7 @@ public class Compra {
         this.dataCompra = cadastroCompraDTO.dataCompra();
         this.valorCompra = cadastroCompraDTO.valorCompra();
         this.fornecedor = fornecedor;
-        this.statusCompra = 'N';
+        this.statusCompra = 'A';
         this.dataCompra = LocalDate.now();
     }
 }
