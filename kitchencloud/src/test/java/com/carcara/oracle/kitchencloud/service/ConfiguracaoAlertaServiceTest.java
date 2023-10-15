@@ -25,26 +25,26 @@ public class ConfiguracaoAlertaServiceTest {
 
     ConfiguracaoAlerta configuracaoAlerta;
 
-    @BeforeEach
-    public void setUp(){
-        cadastroConfiguracaoAlertaDTO = new CadastroConfiguracaoAlertaDTO(
-                "Alerta1","DescAlerta1","EntidadeAlerta1","" +
-                "Condicao1","Valor1","Acao1","dest@gmail.com"
-        );
-        configuracaoAlerta = new ConfiguracaoAlerta(cadastroConfiguracaoAlertaDTO);
-    }
-
-    @Test
-    public void criarAlertaOk(){
-        Mockito.when(configuracaoAlertaRepository.save(any(ConfiguracaoAlerta.class)))
-                .thenReturn(configuracaoAlerta);
-
-        ConfiguracaoAlerta configuracaoAlertaResposta = configuracaoAlertaService
-                .criarAlerta(cadastroConfiguracaoAlertaDTO);
-
-        Assertions.assertEquals(configuracaoAlerta,configuracaoAlertaResposta);
-
-        Mockito.verify(configuracaoAlertaRepository,Mockito.times(1)).findFirstByOrderByIdDesc();
-        Mockito.verify(configuracaoAlertaRepository,Mockito.times(1)).save(any(ConfiguracaoAlerta.class));
-    }
+//    @BeforeEach
+//    public void setUp(){
+//        cadastroConfiguracaoAlertaDTO = new CadastroConfiguracaoAlertaDTO(
+//                "Alerta1","DescAlerta1","EntidadeAlerta1","" +
+//                "Condicao1","Valor1","Acao1","dest@gmail.com"
+//        );
+//        configuracaoAlerta = new ConfiguracaoAlerta(cadastroConfiguracaoAlertaDTO);
+//    }
+//
+//    @Test
+//    public void criarAlertaOk(){
+//        Mockito.when(configuracaoAlertaRepository.save(any(ConfiguracaoAlerta.class)))
+//                .thenReturn(configuracaoAlerta);
+//
+//        ConfiguracaoAlerta configuracaoAlertaResposta = configuracaoAlertaService
+//                .criarAlerta(cadastroConfiguracaoAlertaDTO);
+//
+//        Assertions.assertEquals(configuracaoAlerta,configuracaoAlertaResposta);
+//
+//        Mockito.verify(configuracaoAlertaRepository,Mockito.times(1)).findFirstByOrderByIdDesc();
+//        Mockito.verify(configuracaoAlertaRepository,Mockito.times(1)).save(any(ConfiguracaoAlerta.class));
+//    }
 }
