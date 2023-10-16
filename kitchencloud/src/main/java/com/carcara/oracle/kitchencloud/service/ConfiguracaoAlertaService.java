@@ -34,7 +34,7 @@ public class ConfiguracaoAlertaService {
 
         Integer firstId = configuracaoAlertaRepository.findFirstByOrderByIdDesc();
 
-        configuracaoAlerta.setId(firstId != null ? firstId : 1);
+        configuracaoAlerta.setId(firstId != null ? firstId+1 : 1);
         return configuracaoAlertaRepository.save(configuracaoAlerta);
     }
 
@@ -84,7 +84,7 @@ public class ConfiguracaoAlertaService {
         ConfiguracaoAlerta alerta = alertas.get(0);
             switch (alerta.getCondicaoDisparo()){
                 case VALIDADE -> {
-                    List<Estoque> estoques = estoqueService.procurarEstoquePorDataValidade(LocalDate.now());
+                    List<Estoque> estoques = estoqueService.procurarEstoquePorDataValidade(LocalDate.now().plusDays(Long.valueOf(alerta.getValorParametro())));
                     envioEmail = EnvioEmail.builder().para(alerta.getDestinatarios())
                                     .assunto("Validade")
                                             .conteudo(tabelaItensEstoque(estoques)).build();
