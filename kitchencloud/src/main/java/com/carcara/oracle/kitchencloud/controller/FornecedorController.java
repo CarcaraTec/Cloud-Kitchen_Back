@@ -31,5 +31,4 @@ public class FornecedorController {
     public List<ExibicaoPainelFornecedorDTO> painelFornecedores(){
         return fornecedorService.exibirFornecedores();
     }
-
 }

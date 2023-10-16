@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/alerta")
 public class AlertaController {
@@ -21,5 +23,8 @@ public class AlertaController {
         return configuracaoAlertaService.criarAlerta(configuracaoAlerta);
     }
 
-
+    @PostMapping("rotina-data")
+    public List<ConfiguracaoAlerta> teste(){
+        return configuracaoAlertaService.alertaData();
+    }
 }
