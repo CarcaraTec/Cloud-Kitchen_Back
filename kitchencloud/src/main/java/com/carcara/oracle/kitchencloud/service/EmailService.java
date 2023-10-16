@@ -1,7 +1,6 @@
 package com.carcara.oracle.kitchencloud.service;
 
 
-import com.carcara.oracle.kitchencloud.InformacoesMes;
 import com.carcara.oracle.kitchencloud.config.JSONToPDF;
 import com.carcara.oracle.kitchencloud.model.EnvioEmail;
 import com.carcara.oracle.kitchencloud.model.RankVendaProduto;

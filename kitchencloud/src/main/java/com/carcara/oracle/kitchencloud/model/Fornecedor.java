@@ -21,6 +21,10 @@ public class Fornecedor {
     private Long codFornecedor;
     private String nomeFornecedor;
     private String cnpjFornecedor;
+    private String telefone;
+    private String prazoEntrega;
+    private String categoria;
+    private String razaoSocial;
 
     @ManyToOne
     @JoinColumn(name = "cod_endereco")

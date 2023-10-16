@@ -20,13 +20,10 @@ public class Ingrediente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codIngrediente;
-
     private String unidadeMedida;
     private String categoriaIngrediente;
     private String nomeIngrediente;
-
-    @ManyToOne
-    @JoinColumn(name = "cod_estoque")
-    private Estoque estoque;
-
+    private Float capacidade;
+    private Float estoqueMinimo;
+    private Float quantidadeTotal;
 }

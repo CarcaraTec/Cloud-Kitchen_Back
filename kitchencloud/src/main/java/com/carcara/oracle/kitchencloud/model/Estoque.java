@@ -1,5 +1,6 @@
 package com.carcara.oracle.kitchencloud.model;
 
+import com.carcara.oracle.kitchencloud.model.dto.CadastroEstoqueDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -19,17 +21,12 @@ import java.util.List;
 public class Estoque {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codEstoque;
     private Integer pesoProduto;
     private Integer quantidadeProduto;
     private LocalDate dataEntrada;
     private LocalDate dataValidade;
-    private Integer capacidade;
-    private Integer estoqueMinimo;
 
-    @OneToMany(mappedBy = "estoque")
-    private List<Ingrediente> ingrediente;
 
     @OneToMany(mappedBy = "estoque")
     private List<SaidaEstoque> saidaEstoques;
@@ -38,4 +35,11 @@ public class Estoque {
     @JoinColumn(name = "cod_item_compra")
     private ItemCompra itemCompra;
 
+    public Estoque(CadastroEstoqueDTO cadastroEstoqueDTO, ItemCompra itemCompra) {
+        this.pesoProduto = cadastroEstoqueDTO.pesoProduto();
+        this.quantidadeProduto = cadastroEstoqueDTO.quantidadeProduto();
+        this.dataEntrada = LocalDate.now();
+        this.dataValidade = cadastroEstoqueDTO.dataValidade();
+        this.itemCompra = itemCompra;
+    }
 }

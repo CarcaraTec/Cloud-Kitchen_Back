@@ -1,5 +1,6 @@
 package com.carcara.oracle.kitchencloud.model;
 
+import com.carcara.oracle.kitchencloud.model.dto.SaidaEstoqueDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,6 @@ import java.time.LocalDate;
 public class SaidaEstoque {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codSaida;
     private Integer quantidadeSaida;
     private LocalDate dataSaida;
@@ -31,4 +31,12 @@ public class SaidaEstoque {
     @ManyToOne
     @JoinColumn(name = " cod_prato")
     private Cardapio cardapio;
+
+    public SaidaEstoque(SaidaEstoqueDTO saidaEstoqueDTO, Estoque estoque, Cardapio cardapio) {
+        this.quantidadeSaida = saidaEstoqueDTO.quantidadeSaida();
+        this.dataSaida = LocalDate.now();
+        this.motivoSaida = saidaEstoqueDTO.motivoSaida();
+        this.estoque = estoque;
+        this.cardapio = cardapio;
+    }
 }

@@ -19,7 +19,6 @@ import java.util.List;
 public class Cardapio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codPrato;
     private char statusPrato;
     private String ingredientes;
