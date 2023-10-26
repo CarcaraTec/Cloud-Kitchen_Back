@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import oracle.sql.INTERVALDS;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,6 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tb_funcionario")
+
 public class Funcionario {
 
     @Id
@@ -22,4 +25,10 @@ public class Funcionario {
     private String nomeFuncionario;
     private String cpfFuncionario;
     private Date dataTrabalho;
+    private Double horasTrabalhadas;
+    private String cargo;
+
+    @ManyToMany(mappedBy = "funcionarios")
+    private List<Folga> folgas;
+
 }
