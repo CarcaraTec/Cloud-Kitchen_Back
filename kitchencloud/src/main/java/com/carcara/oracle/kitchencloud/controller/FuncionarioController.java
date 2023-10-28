@@ -38,6 +38,4 @@ public class FuncionarioController {
     public Map<String, Double> calculoRendimento(@RequestParam LocalDateTime data1, @RequestParam LocalDateTime data2){
         return funcionarioService.calculoRendimento(data1, data2);
     }
-
-
 }

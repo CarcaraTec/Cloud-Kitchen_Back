@@ -40,14 +40,19 @@ public class FuncionarioService {
     }
 
     public Map<String, Double> calculoRendimento(LocalDateTime data1, LocalDateTime data2) {
+        List<Comanda> comandas = new ArrayList<>();
+
         if (data1 == null && data2 == null) {
+            comandas = comandaRepository.findByHorarioAberturaBetween(LocalDateTime.now(), LocalDateTime.now().minusDays(30));
             // trazer dos últimos 30 dias
             // LocalDate.now().minusDays(30)
         } else if (data1 != null && data2 == null) {
-            // trazer apenas do dia passado no data1
+            comandas = comandaRepository.findByHorarioAberturaBetween(data1, data1);
+        }else{
+            comandas = comandaRepository.findByHorarioAberturaBetween(data1, data2);
+
         }
 
-        List<Comanda> comandas = comandaRepository.findByHorarioAberturaBetween(data1, data2);
         Integer totalComandas = comandas.size();
 
         Map<String, Integer> quantidadeAtendimentoFunc = new HashMap();
