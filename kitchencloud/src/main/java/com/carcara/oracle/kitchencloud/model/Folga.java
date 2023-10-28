@@ -20,7 +20,7 @@ public class Folga {
     @Id
     private Long codFolga;
 
-    private LocalDateTime dataFolga;
+    private String dataFolga;
     private String motivoFolga;
 
     @ManyToMany

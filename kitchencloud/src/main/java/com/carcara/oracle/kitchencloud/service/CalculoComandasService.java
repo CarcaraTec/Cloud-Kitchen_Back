@@ -1,9 +1,6 @@
 package com.carcara.oracle.kitchencloud.service;
 
-import com.carcara.oracle.kitchencloud.exception.SolicitacaoNaoEncontrada;
 import com.carcara.oracle.kitchencloud.model.Comanda;
-import com.carcara.oracle.kitchencloud.model.ItemVendaDiaria;
-import com.carcara.oracle.kitchencloud.model.VendaDiaria;
 import com.carcara.oracle.kitchencloud.model.dto.CalculoDTO;
 import com.carcara.oracle.kitchencloud.repository.ComandaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.*;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class CalculoService {
+public class CalculoComandasService {
 
     @Autowired
     private ComandaRepository comandaRepository;
