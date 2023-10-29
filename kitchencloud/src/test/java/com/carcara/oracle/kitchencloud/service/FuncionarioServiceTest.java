@@ -74,7 +74,7 @@ public class FuncionarioServiceTest {
         comanda1.setHorarioAbertura(Timestamp.valueOf(data1));
         comanda1.setFuncionario(funcionario1);
 
-        comanda2.setHorarioAbertura(Timestamp.valueOf(LocalDateTime.now()));
+        comanda2.setHorarioAbertura(Timestamp.valueOf(LocalDateTime.now().withNano(0)));
         comanda2.setFuncionario(funcionario2);
 
         List<Comanda> comandas = new ArrayList<>();
