@@ -44,8 +44,6 @@ public class FuncionarioService {
 
         if (data1 == null && data2 == null) {
             comandas = comandaRepository.findByHorarioAberturaBetween(LocalDateTime.now(), LocalDateTime.now().minusDays(30));
-            // trazer dos últimos 30 dias
-            // LocalDate.now().minusDays(30)
         } else if (data1 != null && data2 == null) {
             comandas = comandaRepository.findByHorarioAberturaBetween(data1, data1);
         }else{
