@@ -39,6 +39,6 @@ public class ViewEstoqueServiceTest {
 
         Assertions.assertEquals(Collections.singletonList(viewEstoque),viewEstoques);
 
-        Mockito.verify(viewEstoqueRepository,Mockito.times(1));
+        Mockito.verify(viewEstoqueRepository,Mockito.times(1)).findAll();
     }
 }
