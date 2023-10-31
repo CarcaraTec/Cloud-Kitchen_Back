@@ -5,7 +5,9 @@ import com.carcara.oracle.kitchencloud.model.Comanda;
 import com.carcara.oracle.kitchencloud.model.Funcionario;
 import com.carcara.oracle.kitchencloud.model.dto.CalculoAtendimentosDTO;
 import com.carcara.oracle.kitchencloud.model.dto.ExibicaoFuncionarioDTO;
+import com.carcara.oracle.kitchencloud.model.dto.ExibicaoNotaDTO;
 import com.carcara.oracle.kitchencloud.service.FuncionarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/funcionarios")
+@Tag(name = "FUNCIONARIO")
 public class FuncionarioController {
 
     @Autowired
@@ -37,5 +40,10 @@ public class FuncionarioController {
     @GetMapping("/total-atendimentos")
     public Map<String, Double> calculoRendimento(@RequestParam LocalDateTime data1, @RequestParam LocalDateTime data2){
         return funcionarioService.calculoRendimento(data1, data2);
+    }
+
+    @GetMapping("/avaliacao/{codFuncionario}")
+    public List<ExibicaoNotaDTO> avaliacoesFuncionario(@PathVariable(value = "codFuncionario") Long codFuncionario){
+        return funcionarioService.avaliacoesFuncionario(codFuncionario);
     }
 }

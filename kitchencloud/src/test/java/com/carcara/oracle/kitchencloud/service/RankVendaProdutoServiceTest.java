@@ -33,15 +33,15 @@ public class RankVendaProdutoServiceTest {
                 .impactoPorcentagem(new BigDecimal("10")).build();
     }
 
-//    @Test
-//    public void rankVendaProdutosOk(){
-//        Mockito.when(rankVendaProdutoRepository
-//                .rankDeVendas(1,"2023-08-01","2023-08-02"))
-//                .thenReturn(Collections.singletonList(rankVendaProduto));
-//
-//        List<RankVendaProduto> rankVendaProdutos = rankVendaProdutoService.rankVendaProdutos(1,"2023-08-01","2023-08-02");
-//
-//        Assertions.assertEquals(Collections.singletonList(rankVendaProduto),rankVendaProdutos);
-//        Mockito.verify(rankVendaProdutoRepository,Mockito.times(1)).rankDeVendas(1,"2023-08-01","2023-08-02");
-//    }
+    @Test
+    public void rankVendaProdutosOk(){
+        Mockito.when(rankVendaProdutoRepository
+                .rankDeVendas(1,"2023-08-01","2023-08-02"))
+                .thenReturn(Collections.singletonList(rankVendaProduto));
+
+        List<RankVendaProduto> rankVendaProdutos = rankVendaProdutoService.rankVendaProdutos(1,"2023-08-01","2023-08-02");
+
+        Assertions.assertEquals(Collections.singletonList(rankVendaProduto),rankVendaProdutos);
+        Mockito.verify(rankVendaProdutoRepository,Mockito.times(1)).rankDeVendas(1,"2023-08-01","2023-08-02");
+    }
 }

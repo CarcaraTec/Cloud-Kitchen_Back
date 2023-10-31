@@ -2,7 +2,10 @@ package com.carcara.oracle.kitchencloud.service;
 
 import com.carcara.oracle.kitchencloud.model.Comanda;
 import com.carcara.oracle.kitchencloud.model.Funcionario;
+import com.carcara.oracle.kitchencloud.model.Nota;
+import com.carcara.oracle.kitchencloud.model.dto.ExibicaoNotaDTO;
 import com.carcara.oracle.kitchencloud.repository.ComandaRepository;
+import com.carcara.oracle.kitchencloud.repository.NotaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,25 +16,32 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class FuncionarioServiceTest {
 
-
     @Mock
     private ComandaRepository comandaRepository;
+    @Mock
+    private NotaRepository notaRepository;
     @InjectMocks
     private FuncionarioService funcionarioService;
 
     Comanda comanda1 = new Comanda();
     Comanda comanda2 = new Comanda();
-    Comanda comanda3 = new Comanda();
-
     Funcionario funcionario1 = new Funcionario();
     Funcionario funcionario2 = new Funcionario();
+    List<Comanda> comandas = new ArrayList<>();
+    Map<String, Double> resultadoEsperado = new HashMap<>();
+    Map<String, Double> result = new HashMap<>();
+    Nota nota = new Nota();
+    ExibicaoNotaDTO exibicaoNotaDTO;
+    private LocalDateTime data1;
+    private LocalDateTime data2;
+
 
     @BeforeEach
     public void setUp() {
@@ -40,27 +50,33 @@ public class FuncionarioServiceTest {
 
         funcionario2.setCodFuncionario(2L);
         funcionario2.setNomeFuncionario("funcionario2");
-    }
-
-    @Test
-    public void calculoRendimentoData1AndData2NullTest() {
-        LocalDateTime data1 = LocalDateTime.now().withNano(0);
-        LocalDateTime data2 = LocalDateTime.now().minusDays(30);
 
         comanda1.setFuncionario(funcionario1);
         comanda2.setFuncionario(funcionario2);
 
-        List<Comanda> comandas = new ArrayList<>();
         comandas.add(comanda1);
         comandas.add(comanda2);
 
+        nota.setCodNota(1L);
+        nota.setFuncionario(funcionario1);
+        nota.setNotaAtendimento(10);
+        nota.setDataAvaliacao(LocalDateTime.now().withNano(0));
+        nota.setComentario("teste");
+
+        exibicaoNotaDTO = new ExibicaoNotaDTO(nota);
+    }
+
+    @Test
+    public void calculoRendimentoData1AndData2NullTest() {
+        data1 = LocalDateTime.now().withNano(0);
+        data2 = LocalDateTime.now().minusDays(30);
+
         when(comandaRepository.findByHorarioAberturaBetween(data1, data2)).thenReturn(comandas);
 
-        Map<String, Double> resultadoEsperado = new HashMap<>();
         resultadoEsperado.put(funcionario1.getNomeFuncionario(), 50D);
         resultadoEsperado.put(funcionario2.getNomeFuncionario(), 50D);
 
-        Map<String, Double> result = funcionarioService.calculoRendimento(data1, data2);
+        result = funcionarioService.calculoRendimento(data1, data2);
 
         assertEquals(comandas.size(), result.size());
         assertEquals(resultadoEsperado, result);
@@ -68,25 +84,17 @@ public class FuncionarioServiceTest {
 
     @Test
     public void calculoRendimentoData2NullTest(){
-        LocalDateTime data1 = LocalDateTime.of(2023, 10, 29, 15, 30);
-        LocalDateTime data2 = null;
+        data1 = LocalDateTime.of(2023, 10, 29, 15, 30);
+        data2 = null;
 
         comanda1.setHorarioAbertura(Timestamp.valueOf(data1));
-        comanda1.setFuncionario(funcionario1);
 
         comanda2.setHorarioAbertura(Timestamp.valueOf(LocalDateTime.now().withNano(0)));
-        comanda2.setFuncionario(funcionario2);
-
-        List<Comanda> comandas = new ArrayList<>();
-        comandas.add(comanda1);
-        comandas.add(comanda2);
-
         when(comandaRepository.findByHorarioAberturaBetween(data1, data1)).thenReturn(Collections.singletonList(comanda1));
 
-        Map<String, Double> resultadoEsperado = new HashMap<>();
         resultadoEsperado.put(funcionario1.getNomeFuncionario(), 100D);
 
-        Map<String, Double> result = funcionarioService.calculoRendimento(data1, data2);
+        result = funcionarioService.calculoRendimento(data1, data2);
 
         assertEquals(resultadoEsperado.size(), result.size());
         assertEquals(resultadoEsperado, result);
@@ -94,29 +102,31 @@ public class FuncionarioServiceTest {
 
     @Test
     public void calculoRendimentoData1AndData2NotNullTest(){
-        LocalDateTime data1 = LocalDateTime.of(2023, 10, 29, 15, 30);
-        LocalDateTime data2 = LocalDateTime.of(2023, 11, 29, 15, 30);
+        data1 = LocalDateTime.of(2023, 10, 29, 15, 30);
+        data2 = LocalDateTime.of(2023, 11, 29, 15, 30);
 
         comanda1.setHorarioAbertura(Timestamp.valueOf(data1));
-        comanda1.setFuncionario(funcionario1);
-
         comanda2.setHorarioAbertura(Timestamp.valueOf(data2));
-        comanda2.setFuncionario(funcionario2);
-
-        List<Comanda> comandas = new ArrayList<>();
-        comandas.add(comanda1);
-        comandas.add(comanda2);
 
         when(comandaRepository.findByHorarioAberturaBetween(data1, data2)).thenReturn(comandas);
 
-        Map<String, Double> resultadoEsperado = new HashMap<>();
         resultadoEsperado.put(funcionario1.getNomeFuncionario(), 50D);
         resultadoEsperado.put(funcionario2.getNomeFuncionario(), 50D);
 
-        Map<String, Double> result = funcionarioService.calculoRendimento(data1, data2);
+        result = funcionarioService.calculoRendimento(data1, data2);
 
         assertEquals(resultadoEsperado.size(), result.size());
         assertEquals(resultadoEsperado, result);
+    }
+
+    @Test
+    public void avaliacoesFuncionario(){
+        when(notaRepository.findByFuncionarioCodFuncionario(1L)).thenReturn(Collections.singletonList(nota));
+
+        List<ExibicaoNotaDTO> exibicaoNotaDTOS = funcionarioService.avaliacoesFuncionario(1L);
+
+        assertEquals("teste", nota.getComentario());
+        assertTrue(exibicaoNotaDTOS.contains(exibicaoNotaDTO));
     }
 }
 
