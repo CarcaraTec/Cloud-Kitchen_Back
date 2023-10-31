@@ -2,10 +2,13 @@ package com.carcara.oracle.kitchencloud.service;
 
 import com.carcara.oracle.kitchencloud.model.Comanda;
 import com.carcara.oracle.kitchencloud.model.Funcionario;
+import com.carcara.oracle.kitchencloud.model.Nota;
 import com.carcara.oracle.kitchencloud.model.dto.CalculoAtendimentosDTO;
 import com.carcara.oracle.kitchencloud.model.dto.ExibicaoFuncionarioDTO;
+import com.carcara.oracle.kitchencloud.model.dto.ExibicaoNotaDTO;
 import com.carcara.oracle.kitchencloud.repository.ComandaRepository;
 import com.carcara.oracle.kitchencloud.repository.FuncionarioRepository;
+import com.carcara.oracle.kitchencloud.repository.NotaRepository;
 import jdk.jfr.Percentage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +23,10 @@ public class FuncionarioService {
 
     @Autowired
     private FuncionarioRepository funcionarioRepository;
-
     @Autowired
     private ComandaRepository comandaRepository;
+    @Autowired
+    private NotaRepository notaRepository;
 
     public List<ExibicaoFuncionarioDTO> listarFuncionarios() {
         List<Funcionario> funcionarios = funcionarioRepository.findAll();
@@ -43,7 +47,7 @@ public class FuncionarioService {
         List<Comanda> comandas = new ArrayList<>();
 
         if (data1 == null && data2 == null) {
-            comandas = comandaRepository.findByHorarioAberturaBetween(LocalDateTime.now(), LocalDateTime.now().minusDays(30));
+            comandas = comandaRepository.findByHorarioAberturaBetween(LocalDateTime.now().minusDays(30), LocalDateTime.now());
         } else if (data1 != null && data2 == null) {
             comandas = comandaRepository.findByHorarioAberturaBetween(data1, data1);
         }else{
@@ -69,6 +73,11 @@ public class FuncionarioService {
         }
 
         return porcentagemAtendimentoFunc;
+    }
+
+    public List<ExibicaoNotaDTO> avaliacoesFuncionario(Long codFuncionario){
+        List<Nota> notas = notaRepository.findByFuncionarioCodFuncionario(codFuncionario);
+        return notas.stream().map(nota -> new ExibicaoNotaDTO(nota)).toList();
     }
 
 }
