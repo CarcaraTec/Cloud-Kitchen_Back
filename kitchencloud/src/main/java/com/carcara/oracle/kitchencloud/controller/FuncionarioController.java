@@ -37,6 +37,12 @@ public class FuncionarioController {
         return ResponseEntity.ok(funcionarioService.listarFuncionarios());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ExibicaoFuncionarioDTO> buscarFuncionario(@PathVariable Long id){
+        ExibicaoFuncionarioDTO funcionarioDTO = funcionarioService.buscarFuncionario(id);
+        return ResponseEntity.ok().body(funcionarioDTO);
+    }
+
     @GetMapping("/total-atendimentos")
     public Map<String, Double> calculoRendimento(@RequestParam LocalDateTime data1, @RequestParam LocalDateTime data2){
         return funcionarioService.calculoRendimento(data1, data2);
