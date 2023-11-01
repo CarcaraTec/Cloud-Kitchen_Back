@@ -3,9 +3,11 @@ package com.carcara.oracle.kitchencloud.controller;
 
 import com.carcara.oracle.kitchencloud.model.Comanda;
 import com.carcara.oracle.kitchencloud.model.Funcionario;
+import com.carcara.oracle.kitchencloud.model.Nota;
 import com.carcara.oracle.kitchencloud.model.dto.CalculoAtendimentosDTO;
 import com.carcara.oracle.kitchencloud.model.dto.ExibicaoFuncionarioDTO;
 import com.carcara.oracle.kitchencloud.model.dto.ExibicaoNotaDTO;
+import com.carcara.oracle.kitchencloud.model.dto.MediaAvaliacaoPorFuncionarioDTO;
 import com.carcara.oracle.kitchencloud.service.FuncionarioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +53,12 @@ public class FuncionarioController {
     @GetMapping("/avaliacao/{codFuncionario}")
     public List<ExibicaoNotaDTO> avaliacoesFuncionario(@PathVariable(value = "codFuncionario") Long codFuncionario){
         return funcionarioService.avaliacoesFuncionario(codFuncionario);
+    }
+    @GetMapping("/media-notas/{dataAvaliacaoIni}/{dataAvaliacaoFin}")
+    public List<MediaAvaliacaoPorFuncionarioDTO> mediaAvaliacaoPorFuncionarioDTOS (
+            @PathVariable LocalDateTime dataAvaliacaoIni,
+            @PathVariable LocalDateTime dataAvaliacaoFin
+    ){
+        return funcionarioService.calculoMediaAvalicaoPorFuncionarioPorPeriodo(dataAvaliacaoIni, dataAvaliacaoFin);
     }
 }
