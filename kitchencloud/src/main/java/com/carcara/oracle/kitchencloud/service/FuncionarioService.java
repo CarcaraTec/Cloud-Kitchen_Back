@@ -33,6 +33,11 @@ public class FuncionarioService {
         return funcionarios.stream().map(funcionario -> new ExibicaoFuncionarioDTO(funcionario)).toList();
     }
 
+    public ExibicaoFuncionarioDTO buscarFuncionario(Long id){
+        Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
+        return new ExibicaoFuncionarioDTO(funcionario.get());
+    }
+
     public CalculoAtendimentosDTO calculoTotalAtendimentos(Long codFuncionario, LocalDateTime data1, LocalDateTime data2) {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(codFuncionario);
         if (funcionario.isEmpty()) {
