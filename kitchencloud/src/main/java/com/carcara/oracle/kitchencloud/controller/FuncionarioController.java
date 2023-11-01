@@ -21,6 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/funcionarios")
 @Tag(name = "FUNCIONARIO")
+@CrossOrigin
 public class FuncionarioController {
 
     @Autowired
