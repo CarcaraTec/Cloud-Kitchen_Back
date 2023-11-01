@@ -6,6 +6,7 @@ import com.carcara.oracle.kitchencloud.model.Nota;
 import com.carcara.oracle.kitchencloud.model.dto.CalculoAtendimentosDTO;
 import com.carcara.oracle.kitchencloud.model.dto.ExibicaoFuncionarioDTO;
 import com.carcara.oracle.kitchencloud.model.dto.ExibicaoNotaDTO;
+import com.carcara.oracle.kitchencloud.model.dto.MediaAvaliacaoPorFuncionarioDTO;
 import com.carcara.oracle.kitchencloud.repository.ComandaRepository;
 import com.carcara.oracle.kitchencloud.repository.FuncionarioRepository;
 import com.carcara.oracle.kitchencloud.repository.NotaRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class FuncionarioService {
@@ -83,6 +85,28 @@ public class FuncionarioService {
     public List<ExibicaoNotaDTO> avaliacoesFuncionario(Long codFuncionario){
         List<Nota> notas = notaRepository.findByFuncionarioCodFuncionario(codFuncionario);
         return notas.stream().map(nota -> new ExibicaoNotaDTO(nota)).toList();
+    }
+
+    public List<MediaAvaliacaoPorFuncionarioDTO> calculoMediaAvalicaoPorFuncionarioPorPeriodo(
+            LocalDateTime dataAvaliacaoIni, LocalDateTime dataAvaliacaoFin
+    ){
+        List<MediaAvaliacaoPorFuncionarioDTO> mediaAvaliacaoPorFuncionarioDTOS = new ArrayList<>();
+        List<Nota> notasPorRange = notaRepository.findBetweenDataAvaliacao(dataAvaliacaoIni,dataAvaliacaoFin);
+
+        Map<Funcionario, List<Nota>> avaliacoesPorFuncionario = notasPorRange.stream()
+                .collect(Collectors.groupingBy(Nota::getFuncionario));
+
+        avaliacoesPorFuncionario.forEach((funcionario, notas) -> {
+            OptionalDouble media = notas.stream()
+                    .mapToDouble(Nota::getNotaAtendimento)
+                    .average();
+            Long mediaComoLong = media.isPresent() ? Double.valueOf(media.getAsDouble()).longValue() : null;
+
+            mediaAvaliacaoPorFuncionarioDTOS.add(new MediaAvaliacaoPorFuncionarioDTO(funcionario.getCodFuncionario(),
+                    funcionario.getNomeFuncionario(),
+                    mediaComoLong));
+        });
+        return mediaAvaliacaoPorFuncionarioDTOS;
     }
 
 }

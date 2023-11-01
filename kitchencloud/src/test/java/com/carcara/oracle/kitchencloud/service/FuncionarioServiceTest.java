@@ -4,6 +4,7 @@ import com.carcara.oracle.kitchencloud.model.Comanda;
 import com.carcara.oracle.kitchencloud.model.Funcionario;
 import com.carcara.oracle.kitchencloud.model.Nota;
 import com.carcara.oracle.kitchencloud.model.dto.ExibicaoNotaDTO;
+import com.carcara.oracle.kitchencloud.model.dto.MediaAvaliacaoPorFuncionarioDTO;
 import com.carcara.oracle.kitchencloud.repository.ComandaRepository;
 import com.carcara.oracle.kitchencloud.repository.NotaRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,7 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -42,6 +44,10 @@ public class FuncionarioServiceTest {
     private LocalDateTime data1;
     private LocalDateTime data2;
 
+    List<Nota> notasPorRange;
+
+    List<MediaAvaliacaoPorFuncionarioDTO> mediaAvaliacao = new ArrayList<>();
+
 
     @BeforeEach
     public void setUp() {
@@ -64,6 +70,12 @@ public class FuncionarioServiceTest {
         nota.setComentario("teste");
 
         exibicaoNotaDTO = new ExibicaoNotaDTO(nota);
+
+        notasPorRange = new ArrayList<>();
+        notasPorRange.add(nota);
+        mediaAvaliacao.add(new MediaAvaliacaoPorFuncionarioDTO(nota.getFuncionario().getCodFuncionario(),
+                nota.getFuncionario().getNomeFuncionario(),
+                Long.valueOf(nota.getNotaAtendimento())));
     }
 
     @Test
@@ -128,6 +140,20 @@ public class FuncionarioServiceTest {
         assertEquals("teste", nota.getComentario());
         assertTrue(exibicaoNotaDTOS.contains(exibicaoNotaDTO));
     }
+
+    @Test
+    public void calculoMediaAvalicaoPorFuncionarioPorPeriodoOk (){
+        LocalDateTime dataAvaliacaoIni = LocalDateTime.now();
+        when(notaRepository
+                .findBetweenDataAvaliacao(any(LocalDateTime.class),any(LocalDateTime.class))).thenReturn(notasPorRange);
+
+        List<MediaAvaliacaoPorFuncionarioDTO> mediaAvaliacaoPorFuncionarioDTOS
+                = funcionarioService.calculoMediaAvalicaoPorFuncionarioPorPeriodo(dataAvaliacaoIni,dataAvaliacaoIni);
+
+        assertEquals(mediaAvaliacaoPorFuncionarioDTOS,mediaAvaliacao);
+    }
+
+
 }
 
 
