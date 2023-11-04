@@ -88,10 +88,11 @@ public class FuncionarioService {
     }
 
     public List<MediaAvaliacaoPorFuncionarioDTO> calculoMediaAvalicaoPorFuncionarioPorPeriodo(
-            LocalDateTime dataAvaliacaoIni, LocalDateTime dataAvaliacaoFin
-    ){
+            Long idFuncionario, LocalDateTime dataAvaliacaoIni, LocalDateTime dataAvaliacaoFin){
         List<MediaAvaliacaoPorFuncionarioDTO> mediaAvaliacaoPorFuncionarioDTOS = new ArrayList<>();
-        List<Nota> notasPorRange = notaRepository.findBetweenDataAvaliacao(dataAvaliacaoIni,dataAvaliacaoFin);
+        List<Nota> notasPorRange =
+                idFuncionario == null ? notaRepository.findBetweenDataAvaliacao(dataAvaliacaoIni,dataAvaliacaoFin) :
+                        notaRepository.findBetweenDataAvaliacao(encontrarFuncionario(idFuncionario),dataAvaliacaoIni,dataAvaliacaoFin);
 
         Map<Funcionario, List<Nota>> avaliacoesPorFuncionario = notasPorRange.stream()
                 .collect(Collectors.groupingBy(Nota::getFuncionario));
@@ -107,6 +108,10 @@ public class FuncionarioService {
                     mediaComoLong));
         });
         return mediaAvaliacaoPorFuncionarioDTOS;
+    }
+
+    public Funcionario encontrarFuncionario (Long codFuncionario){
+        return funcionarioRepository.findById(codFuncionario).orElseThrow();
     }
 
 }

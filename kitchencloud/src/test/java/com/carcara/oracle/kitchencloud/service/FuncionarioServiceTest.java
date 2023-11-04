@@ -148,7 +148,7 @@ public class FuncionarioServiceTest {
                 .findBetweenDataAvaliacao(any(LocalDateTime.class),any(LocalDateTime.class))).thenReturn(notasPorRange);
 
         List<MediaAvaliacaoPorFuncionarioDTO> mediaAvaliacaoPorFuncionarioDTOS
-                = funcionarioService.calculoMediaAvalicaoPorFuncionarioPorPeriodo(dataAvaliacaoIni,dataAvaliacaoIni);
+                = funcionarioService.calculoMediaAvalicaoPorFuncionarioPorPeriodo(null,dataAvaliacaoIni,dataAvaliacaoIni);
 
         assertEquals(mediaAvaliacaoPorFuncionarioDTOS,mediaAvaliacao);
     }
