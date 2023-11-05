@@ -55,18 +55,13 @@ public class FuncionarioController {
     public List<ExibicaoNotaDTO> avaliacoesFuncionario(@PathVariable(value = "codFuncionario") Long codFuncionario){
         return funcionarioService.avaliacoesFuncionario(codFuncionario);
     }
-    @GetMapping("/media-notas/{dataAvaliacaoIni}/{dataAvaliacaoFin}")
-    public List<MediaAvaliacaoPorFuncionarioDTO> mediaAvaliacaoPorFuncionarioDTOS (
-            @PathVariable LocalDateTime dataAvaliacaoIni,
-            @PathVariable LocalDateTime dataAvaliacaoFin
-    ){
-        return funcionarioService.calculoMediaAvalicaoPorFuncionarioPorPeriodo(null,dataAvaliacaoIni, dataAvaliacaoFin);
-    }
-    @GetMapping("/media-notas/{dataAvaliacaoIni}/{dataAvaliacaoFin}/{idFuncionario}")
+
+
+    @GetMapping("/media-notas")
     public List<MediaAvaliacaoPorFuncionarioDTO> mediaAvaliacaoPorFuncionarioIndividual(
-            @PathVariable LocalDateTime dataAvaliacaoIni,
-            @PathVariable LocalDateTime dataAvaliacaoFin,
-            @PathVariable Long idFuncionario
+            @RequestParam LocalDateTime dataAvaliacaoIni,
+            @RequestParam LocalDateTime dataAvaliacaoFin,
+            @RequestParam(required = false) Long idFuncionario
     ){
         return funcionarioService.calculoMediaAvalicaoPorFuncionarioPorPeriodo(idFuncionario,dataAvaliacaoIni, dataAvaliacaoFin);
     }
