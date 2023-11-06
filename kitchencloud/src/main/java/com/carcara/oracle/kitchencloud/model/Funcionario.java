@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,4 +23,10 @@ public class Funcionario {
     private String nomeFuncionario;
     private String cpfFuncionario;
     private Date dataTrabalho;
+    private Double horasTrabalhadas;
+    private String cargo;
+
+    @ManyToMany(mappedBy = "funcionarios")
+    private List<Folga> folgas;
+
 }
