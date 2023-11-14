@@ -32,5 +32,4 @@ public class ItemVendaDiaria {
     @JoinColumn(name = "cod_prato")
     private Cardapio cardapio;
 
-
 }
