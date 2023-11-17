@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("estoque")
+@CrossOrigin
 public class EstoqueController {
 
     @Autowired

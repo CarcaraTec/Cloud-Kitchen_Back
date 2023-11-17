@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rank")
+@CrossOrigin
 public class RankVendaProdutoController {
 
     @Autowired

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/painel-receitas")
+@CrossOrigin
 public class CalculoComandaController {
 
     @Autowired
