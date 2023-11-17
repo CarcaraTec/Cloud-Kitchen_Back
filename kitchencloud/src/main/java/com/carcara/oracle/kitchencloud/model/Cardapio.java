@@ -24,7 +24,11 @@ public class Cardapio {
     private String ingredientes;
     private String nomePrato;
     private BigDecimal valorItem;
+    private String categoria;
 
     @OneToMany(mappedBy = "cardapio")
     private List<SaidaEstoque> saidaEstoques;
+
+    @OneToMany(mappedBy = "cardapio")
+    private List<ItemVendaDiaria> vendas;
 }
