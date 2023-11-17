@@ -1,8 +1,6 @@
 package com.carcara.oracle.kitchencloud.repository;
 
-import com.carcara.oracle.kitchencloud.model.Cardapio;
 import com.carcara.oracle.kitchencloud.model.ItemVendaDiaria;
-import com.carcara.oracle.kitchencloud.model.dto.ExibicaoRankPratoDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
