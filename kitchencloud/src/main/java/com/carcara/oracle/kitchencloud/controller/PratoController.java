@@ -14,8 +14,13 @@ public class PratoController {
     @Autowired
     private PratoService pratoService;
 
-    @GetMapping
+    @GetMapping("/mais-vendidos")
     public ExibicaoProdutosVendidos maisVendidos(){
         return pratoService.maisVendidos();
+    }
+
+    @GetMapping("/menos-vendidos")
+    public ExibicaoProdutosVendidos menosVendidos(){
+        return pratoService.menosVendidos();
     }
 }

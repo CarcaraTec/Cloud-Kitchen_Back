@@ -39,5 +39,39 @@ public interface ItemVendaDiariaRepository extends JpaRepository<ItemVendaDiaria
             "FETCH FIRST 3 ROWS ONLY", nativeQuery = true)
     List<Object[]> bebidasMaisVendidas();
 
+    @Query(value = "SELECT nome_prato, quantidade " +
+            "FROM (" +
+            "    SELECT c.nome_prato AS nome_prato, SUM(ivd.quantidade) AS quantidade " +
+            "    FROM tb_item_venda_diaria ivd " +
+            "    JOIN tb_cardapio c ON ivd.cod_prato = c.cod_prato " +
+            "    WHERE c.categoria = 'prato principal' " +
+            "    GROUP BY c.nome_prato " +
+            "    ORDER BY quantidade DESC" +
+            ") " +
+            "WHERE ROWNUM <= 3", nativeQuery = true)
+    List<Object[]> pratosPrincipaisMenosVendidos();
 
+    @Query(value = "SELECT nome_prato, quantidade " +
+            "FROM (" +
+            "    SELECT c.nome_prato AS nome_prato, SUM(ivd.quantidade) AS quantidade " +
+            "    FROM tb_item_venda_diaria ivd " +
+            "    JOIN tb_cardapio c ON ivd.cod_prato = c.cod_prato " +
+            "    WHERE c.categoria = 'sobremesa' " +
+            "    GROUP BY c.nome_prato " +
+            "    ORDER BY quantidade DESC" +
+            ") " +
+            "WHERE ROWNUM <= 3", nativeQuery = true)
+    List<Object[]> sobremesasMenosVendidas();
+
+    @Query(value = "SELECT nome_prato, quantidade " +
+            "FROM (" +
+            "    SELECT c.nome_prato AS nome_prato, SUM(ivd.quantidade) AS quantidade " +
+            "    FROM tb_item_venda_diaria ivd " +
+            "    JOIN tb_cardapio c ON ivd.cod_prato = c.cod_prato " +
+            "    WHERE c.categoria = 'bebida' " +
+            "    GROUP BY c.nome_prato " +
+            "    ORDER BY quantidade DESC" +
+            ") " +
+            "WHERE ROWNUM <= 3", nativeQuery = true)
+    List<Object[]> bebidasMenosVendidas();
 }
