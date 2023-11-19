@@ -4,6 +4,7 @@ import com.carcara.oracle.kitchencloud.service.RestTemplateEmailService;
 import com.carcara.oracle.kitchencloud.model.EnvioEmail;
 import com.carcara.oracle.kitchencloud.model.RankVendaProduto;
 import com.carcara.oracle.kitchencloud.service.RankVendaProdutoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/rank")
 @CrossOrigin
+@Tag(name = "RANK VENDA")
 public class RankVendaProdutoController {
 
     @Autowired
