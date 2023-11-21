@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
-    
+
     @Query(value = "SELECT F.* FROM TB_FUNCIONARIO F\n" +
             "JOIN TB_FOLGA_FUNCIONARIO FF ON F.COD_FUNCIONARIO = FF.COD_FUNCIONARIO\n" +
             "WHERE F.COD_FUNCIONARIO \n" +
