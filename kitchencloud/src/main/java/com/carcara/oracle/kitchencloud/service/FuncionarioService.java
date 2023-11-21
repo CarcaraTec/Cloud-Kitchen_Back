@@ -116,8 +116,6 @@ public class FuncionarioService {
     public List<ExibicaoFuncionarioDTO> funcionariosEscalados(LocalDateTime data) {
         String diaSemana = data.getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
         List<Funcionario> funcionariosEscalados = funcionarioRepository.findFuncionariosEscaladosNoDia(diaSemana);
-
-        System.out.println(diaSemana);
         return funcionariosEscalados.stream().map(funcionario -> new ExibicaoFuncionarioDTO(funcionario)).toList();
     }
 
