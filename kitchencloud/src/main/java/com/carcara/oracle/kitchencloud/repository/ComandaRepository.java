@@ -17,4 +17,7 @@ public interface ComandaRepository extends JpaRepository<Comanda, Long> {
     long countByHorarioAberturaBetween(LocalDateTime dataInicio, LocalDateTime dataFim);
 
     long countByFuncionarioAndHorarioAberturaBetween(Funcionario funcionario, LocalDateTime dataInicio, LocalDateTime dataFim);
+
+
+    List<Comanda> findByHorarioFechamentoBetween(LocalDateTime inicioSemana, LocalDateTime fimSemana);
 }
