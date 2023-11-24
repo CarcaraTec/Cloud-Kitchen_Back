@@ -17,6 +17,7 @@ import java.util.Map;
 
 
 @RestController("atendimento")
+@CrossOrigin
 public class AtendimentoController {
     @Autowired
     private AtendimentoService atendimentoService;
