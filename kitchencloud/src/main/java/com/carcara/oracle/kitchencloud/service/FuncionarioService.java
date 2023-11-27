@@ -3,10 +3,7 @@ package com.carcara.oracle.kitchencloud.service;
 import com.carcara.oracle.kitchencloud.model.Comanda;
 import com.carcara.oracle.kitchencloud.model.Funcionario;
 import com.carcara.oracle.kitchencloud.model.Nota;
-import com.carcara.oracle.kitchencloud.model.dto.CalculoAtendimentosDTO;
-import com.carcara.oracle.kitchencloud.model.dto.ExibicaoFuncionarioDTO;
-import com.carcara.oracle.kitchencloud.model.dto.ExibicaoNotaDTO;
-import com.carcara.oracle.kitchencloud.model.dto.MediaAvaliacaoPorFuncionarioDTO;
+import com.carcara.oracle.kitchencloud.model.dto.*;
 import com.carcara.oracle.kitchencloud.repository.ComandaRepository;
 import com.carcara.oracle.kitchencloud.repository.FuncionarioRepository;
 import com.carcara.oracle.kitchencloud.repository.NotaRepository;
@@ -14,7 +11,9 @@ import jdk.jfr.Percentage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -112,6 +111,12 @@ public class FuncionarioService {
 
     public Funcionario encontrarFuncionario (Long codFuncionario){
         return funcionarioRepository.findById(codFuncionario).orElseThrow();
+    }
+
+    public List<ExibicaoFuncionarioDTO> funcionariosEscalados(LocalDateTime data) {
+        String diaSemana = data.getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
+        List<Funcionario> funcionariosEscalados = funcionarioRepository.findFuncionariosEscaladosNoDia(diaSemana);
+        return funcionariosEscalados.stream().map(funcionario -> new ExibicaoFuncionarioDTO(funcionario)).toList();
     }
 
 }

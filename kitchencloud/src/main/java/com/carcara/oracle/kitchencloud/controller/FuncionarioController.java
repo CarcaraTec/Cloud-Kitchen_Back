@@ -65,4 +65,9 @@ public class FuncionarioController {
     ){
         return funcionarioService.calculoMediaAvalicaoPorFuncionarioPorPeriodo(idFuncionario,dataAvaliacaoIni, dataAvaliacaoFin);
     }
+
+    @GetMapping("/escalados")
+    public ResponseEntity<List<ExibicaoFuncionarioDTO>> funcionariosEscalados(@RequestParam LocalDateTime data){
+        return ResponseEntity.ok().body(funcionarioService.funcionariosEscalados(data));
+    }
 }
