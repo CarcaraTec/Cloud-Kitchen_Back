@@ -1,0 +1,58 @@
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      DB_URL: ${{ secrets.DB_URL }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn clean install --file kitchencloud
+
+      - name: List files in target directory
+        run: ls -l kitchencloud/target
+
+      # - name: Use SFTP to transfer file
+      #   run: |
+      #     echo "put /github/workspace/kitchencloud/target/kitchencloud-0.0.1-SNAPSHOT.jar" > sftp-commands.txt
+      #     echo "quit" >> sftp-commands.txt
+      #     sftp -o "IdentityFile=${{ secrets.SSH_PRIVATE_KEY }}" opc@129.148.27.166 -b sftp-commands.txt
+
+      - name: deploy file
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+            username: 'opc'
+            server: '129.148.27.166'
+            ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} 
+            local_path: 'kitchencloud/target/kitchencloud-0.0.1-SNAPSHOT.jar'
+            remote_path: 'project/back'
+            sftpArgs: '-o ConnectTimeout=5'
+
+
+      - name: Use SSH and execute commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: 129.148.27.166
+          username: opc
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo systemctl restart back
+
+
+
+
+
+
