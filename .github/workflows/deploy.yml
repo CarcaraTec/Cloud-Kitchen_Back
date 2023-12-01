@@ -1,3 +1,4 @@
+name: CARCARA | DEPLOY
 on:
   push:
     branches:
