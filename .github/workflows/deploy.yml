@@ -1,4 +1,4 @@
-name: CARCARA | DEPLOY
+name: CARCARA | CD
 on:
   push:
     branches:
