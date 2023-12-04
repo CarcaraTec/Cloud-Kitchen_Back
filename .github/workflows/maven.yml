@@ -1,6 +1,9 @@
 name: CARCARA | CI
 
 on:
+  push:
+    branches:
+      - develop
   pull_request:
     branches:
       - develop
@@ -28,12 +31,25 @@ jobs:
     needs: build
     steps:
     - name: Check Build Status
+      id: check_build
       run: |
         if [ ${{ job.status }} == "success" ]; then
           echo "Build passed successfully."
-          exit 0
+          echo "::set-output name=status::success"
         else
           echo "Build failed. PR cannot be merged."
-          exit 1
+          echo "::set-output name=status::failure"
         fi
 
+    - name: Send Email Notification
+      if: ${{ needs.build.result == 'success' }}
+      uses: softprops/action-email@v2
+      with:
+        to: 'recipient@example.com' # Substitua pelo endereço de e-mail desejado
+        from: 'igoructechnology@gmail.com'
+        host: 'smtp.gmail.com'
+        port: 587
+        username: 'igoructechnology@gmail.com'
+        password: ${{ secrets.EMAIL_PASSWORD }} # Melhor armazenar a senha como um segredo
+
+  # ...outros jobs e steps podem continuar aqui
